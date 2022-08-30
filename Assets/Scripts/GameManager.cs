@@ -12,8 +12,15 @@ public class GameManager : MonoBehaviour
 
     public static List<GameObject> invaders = new List<GameObject>();
 
+    private Vector3 hDistance = new Vector3(0.5f, 0, 0);
+    private Vector3 vDistance = new Vector3(0, 0.1f, 0);
     private bool _isMissileLaunched = false;
+    private bool _isMovingRight;
     private float _missilesCooldown = 3f;
+    private float _maxLeft = -25f;
+    private float _maxRight = 25f;
+    private float _moveTimer = 1f;
+    private float _moveTime = 0.5f;
 
     private void Awake()
     {
@@ -56,9 +63,55 @@ public class GameManager : MonoBehaviour
             _isMissileLaunched = false;
         }
     }
+
+    private void MoveInvaders()
+    {
+        if (invaders.Count > 0)
+        {
+            int hitSide = 0;
+            for (int i = 0; i < invaders.Count; i++)
+            {
+                if (_isMovingRight)
+                {
+                    invaders[i].transform.position += hDistance;
+                }
+                else
+                {
+                    invaders[i].transform.position -= hDistance;
+                }
+                if (invaders[i].transform.position.x > _maxRight || invaders[i].transform.position.x < _maxLeft)
+                {
+                    ++hitSide;
+                }
+            }
+
+            if (hitSide > 0)
+            {
+                for (int i = 0; i < invaders.Count; i++)
+                {
+                    invaders[i].transform.position -= vDistance;
+                }
+                _isMovingRight = !_isMovingRight;
+            }
+
+            _moveTimer = _moveTime;
+        }
+    }
+
+    private float GetMoveSpeed()
+    {
+        float f = invaders.Count * _moveTime;
+        return f;
+    }
+
     public void GameOver()
     {
         Reset();
+    }
+
+    public void Win()
+    {
+
     }
 
     private void Update()
@@ -71,6 +124,11 @@ public class GameManager : MonoBehaviour
         {
             Reset();
         }
+        if (_moveTimer <= 0)
+        {
+            MoveInvaders();
+        }
+        _moveTimer -= Time.deltaTime;
     }
 
     public void Reset()

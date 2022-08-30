@@ -3,22 +3,23 @@ using UnityEngine;
 
 public class SpaceShip : MonoBehaviour
 {
-    [SerializeField] private Vector2 direction;
     [SerializeField] private float speed = 5.0f;
+    [SerializeField] private float shootCooldown = 0.25f;
     [SerializeField] private GameObject laser;
-    [SerializeField] private float shootCooldown = 0.5f;
     [SerializeField] private GameObject explosionPrefab;
+    private float _maxLeft = -25f;
+    private float _maxRight = 25f;
     private GameObject _explosion;
 
     private bool _isShooting = false;
 
-    void FixedUpdate()
+    private void Update()
     {
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && transform.position.x > _maxLeft)
         {
             transform.position += speed * Time.deltaTime * Vector3.left;
         }
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        else if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && transform.position.x < _maxRight)
         {
             transform.position += speed * Time.deltaTime * Vector3.right;
         }

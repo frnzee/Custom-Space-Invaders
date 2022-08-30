@@ -4,6 +4,7 @@ public class Background : MonoBehaviour
 {
     public float speed;
     private Renderer _backgroundRenderer;
+
     void Start()
     {
         _backgroundRenderer= GetComponent<Renderer>();

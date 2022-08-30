@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 975777467655360620}
   - component: {fileID: 6088047115089480466}
   - component: {fileID: 3417775152893278318}
+  - component: {fileID: -186415903233746043}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Missile
@@ -151,3 +152,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missileSpeed: 10
   explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
+--- !u!50 &-186415903233746043
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8812412237524988135}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

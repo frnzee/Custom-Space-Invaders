@@ -19,6 +19,7 @@ public class Laser : MonoBehaviour
             collision.gameObject.GetComponent<Invaders>().Kill();
             Destroy(gameObject);
         }
+
         if (collision.gameObject.CompareTag("Missile"))
         {
             collision.gameObject.GetComponent<Missile>().Kill();
