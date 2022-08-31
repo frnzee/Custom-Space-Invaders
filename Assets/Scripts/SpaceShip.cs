@@ -7,10 +7,14 @@ public class SpaceShip : MonoBehaviour
     [SerializeField] private float shootCooldown = 0.25f;
     [SerializeField] private GameObject laser;
     [SerializeField] private GameObject explosionPrefab;
-    private float _maxLeft = -25f;
-    private float _maxRight = 25f;
+
     private GameObject _explosion;
 
+    private float _maxLeft = -25f;
+    private float _maxRight = 25f;
+    private int _health = 3;
+    private int _lives = 3;
+    
     private bool _isShooting = false;
 
     private void Update()
@@ -36,11 +40,37 @@ public class SpaceShip : MonoBehaviour
         yield return new WaitForSeconds(shootCooldown);
         _isShooting = false;
     }
-    public void ShipDies()
+
+    private void Explosion()
     {
-        gameObject.SetActive(false);
         _explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(_explosion, 2f);
+    }
+
+    public void ShipTakesDamage()
+    {
+        if (_health == 0)
+        {
+            if (_lives == 1)
+            {
+                _lives = 0;
+                gameObject.SetActive(false);
+                Debug.Log("GameOver");
+            }
+            else
+            {
+                --_lives;
+                _health = 3;
+                Explosion();
+                Debug.Log("Lifes :" + _lives + " Health: " + _health);
+            }
+        }
+        else
+        {
+            --_health;
+            Debug.Log("Health: " + _health);
+            Explosion();
+        }
     }
 }
 

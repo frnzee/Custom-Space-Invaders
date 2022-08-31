@@ -26,7 +26,8 @@ public class Missile : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("SpaceShip"))
         {
-            collision.gameObject.GetComponent<SpaceShip>().ShipDies();
+            collision.gameObject.GetComponent<SpaceShip>().ShipTakesDamage();
+            Destroy(gameObject);
         }
     }
 }

@@ -14,13 +14,16 @@ public class GameManager : MonoBehaviour
 
     private Vector3 hDistance = new Vector3(0.5f, 0, 0);
     private Vector3 vDistance = new Vector3(0, 0.1f, 0);
+
     private bool _isMissileLaunched = false;
     private bool _isMovingRight;
+
     private float _missilesCooldown = 3f;
     private float _maxLeft = -25f;
     private float _maxRight = 25f;
     private float _moveTimer = 1f;
-    private float _moveTime = 0.5f;
+    private float _moveTime = 0.05f;
+    private float _maxMoveSpeed = 0.03f;
 
     private void Awake()
     {
@@ -50,6 +53,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private void StartGame()
+    {
+
+    }
+
     private IEnumerator Shoot()
     {
         if (invaders.Count > 0)
@@ -69,7 +77,7 @@ public class GameManager : MonoBehaviour
         if (invaders.Count > 0)
         {
             int hitSide = 0;
-            for (int i = 0; i < invaders.Count; i++)
+            for (int i = 0; i < invaders.Count; ++i)
             {
                 if (_isMovingRight)
                 {
@@ -87,21 +95,27 @@ public class GameManager : MonoBehaviour
 
             if (hitSide > 0)
             {
-                for (int i = 0; i < invaders.Count; i++)
+                for (int i = 0; i < invaders.Count; ++i)
                 {
                     invaders[i].transform.position -= vDistance;
                 }
                 _isMovingRight = !_isMovingRight;
             }
-
-            _moveTimer = _moveTime;
+            _moveTimer = GetMoveSpeed();
         }
     }
 
     private float GetMoveSpeed()
     {
-        float f = invaders.Count * _moveTime;
-        return f;
+        float moveSpeed = invaders.Count * _moveTime;
+        if (moveSpeed < _maxMoveSpeed)
+        {
+            return _maxMoveSpeed;
+        }
+        else
+        {
+            return moveSpeed;
+        }
     }
 
     public void GameOver()
@@ -111,7 +125,7 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
-
+        Reset();
     }
 
     private void Update()
