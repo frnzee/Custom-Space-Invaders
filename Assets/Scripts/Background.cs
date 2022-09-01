@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Background : MonoBehaviour
 {
-    public float speed;
+    [SerializeField] private float speed;
     private Renderer _backgroundRenderer;
 
     void Start()

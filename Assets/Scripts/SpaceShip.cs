@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpaceShip : MonoBehaviour
 {
@@ -7,6 +8,10 @@ public class SpaceShip : MonoBehaviour
     [SerializeField] private float shootCooldown = 0.25f;
     [SerializeField] private GameObject laser;
     [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private Image healthBar;
+    [SerializeField] private Image livesBar;
+    [SerializeField] private Sprite[] healthSprites;
+    [SerializeField] private Sprite[] livesSprites;
 
     private GameObject _explosion;
 
@@ -60,6 +65,7 @@ public class SpaceShip : MonoBehaviour
             else
             {
                 --_lives;
+                livesBar.sprite = livesSprites[_lives - 1];
                 _health = 3;
                 Explosion();
                 Debug.Log("Lifes :" + _lives + " Health: " + _health);
@@ -68,6 +74,7 @@ public class SpaceShip : MonoBehaviour
         else
         {
             --_health;
+            healthBar.sprite = healthSprites[_health - 1];
             Debug.Log("Health: " + _health);
             Explosion();
         }
