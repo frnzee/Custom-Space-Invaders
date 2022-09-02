@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] invaderPrefabs;
     [SerializeField] private GameObject missilePrefab;
+    [SerializeField] private GameObject spaceShipPrefab;
     [SerializeField] private GameObject GameMenu;
     [SerializeField] private GameObject Bunkers;
     [SerializeField] private CanvasGroup GameMenuCanvas;
@@ -33,8 +34,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        _width = 3 * (columns - 1);
-        _height = 3 * (rows - 1);
+
     }
 
     private void Start()
@@ -44,12 +44,18 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        _width = 3 * (columns - 1);
+        _height = 3 * (rows - 1);
         _fadeOut = true;
-        
+
+        Vector2 shipPosition = new(0, -12f);
+        GameObject spaceShip = Instantiate(spaceShipPrefab, transform);
+        spaceShip.transform.position = shipPosition;
+
         for (int row = 0; row < rows; ++row)
         {
-            Vector2 centerOffset = new Vector2(-_width / 2, -_height / 2);
-            Vector2 rowPosition = new Vector2(centerOffset.x, (3 * row) + centerOffset.y);
+            Vector2 centerOffset = new(-_width / 2, -_height / 2);
+            Vector2 rowPosition = new(centerOffset.x, (3 * row) + centerOffset.y);
 
             for (int column = 0; column < columns; ++column)
             {
@@ -128,7 +134,10 @@ public class GameManager : MonoBehaviour
             return moveSpeed;
         }
     }
-
+    private void gameFailed(bool gameFail)
+    {
+        Debug.Log("Delegate arrived to the final destination");
+    }
     public void GameOver()
     {
         Reset();
