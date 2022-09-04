@@ -181,10 +181,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipSpeed: 15
   shootCooldown: 0.5
-  laser: {fileID: 7933210902948542079, guid: 133d60a2a7edf45cb943a8040aafb278, type: 3}
+  laserPrefab: {fileID: 7933210902948542079, guid: 133d60a2a7edf45cb943a8040aafb278, type: 3}
   explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
-  healthBar: {fileID: 0}
-  livesBar: {fileID: 0}
+  spaceShipStats:
+    maxHealth: 5
+    maxLives: 5
+    currentHealth: 3
+    currentLives: 3
+    shipSpeed: 15
+    missileSpeed: 3
   healthSprites:
   - {fileID: 21300000, guid: a7d2bdf7aa886d5459b5234969b25f88, type: 3}
   - {fileID: 21300000, guid: 9736c5b03231042c697a147e882add86, type: 3}

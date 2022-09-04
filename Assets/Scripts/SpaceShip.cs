@@ -8,27 +8,39 @@ public class SpaceShip : MonoBehaviour
     [SerializeField] private float shipSpeed = 15.0f;
     [SerializeField] private float shootCooldown = 0.25f;
 
-    [SerializeField] private GameObject laser;
+    [SerializeField] private GameObject laserPrefab;
     [SerializeField] private GameObject explosionPrefab;
+
+    public SpaceShipStats spaceShipStats;
     
-    [SerializeField] private Image healthBar;
-    [SerializeField] private Image livesBar;
+    private Image healthBar;
+    private Image livesBar;
     
     [SerializeField] private Sprite[] healthSprites;
     [SerializeField] private Sprite[] livesSprites;
 
     private GameObject _explosion;
+    private GameObject _healthLives;
 
     private readonly float _maxLeft = -25f;
     private readonly float _maxRight = 25f;
     
-    private int _health = 3;
-    private int _lives = 3;
-    
+    private int _health;
+    private int _lives;
+
     private bool _isShooting = false;
 
-    private Action<bool> gameFail;
+    private Action<bool> _failGameDelegate;
 
+    private void Start()
+    {
+        
+        healthBar = GameObject.FindGameObjectWithTag("Health Bar").GetComponent<Image>();
+        livesBar = GameObject.FindGameObjectWithTag("Lives Bar").GetComponent<Image>();
+
+        healthBar.sprite = healthSprites[spaceShipStats.currentHealth];
+        livesBar.sprite = livesSprites[spaceShipStats.currentLives];
+    }
     private void Update()
     {
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && transform.position.x > _maxLeft)
@@ -48,7 +60,7 @@ public class SpaceShip : MonoBehaviour
     private IEnumerator Shoot()
     {
         _isShooting = true;
-        Instantiate(laser, transform.position, Quaternion.identity);
+        Instantiate(laserPrefab, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(shootCooldown);
         _isShooting = false;
     }
@@ -59,32 +71,42 @@ public class SpaceShip : MonoBehaviour
         Destroy(_explosion, 0.5f);
     }
 
+    public void Initialize(Action<bool> failGame)
+    {
+        _failGameDelegate = failGame;
+    }
+
+    private void HealthDelegate(int health)
+    {
+        _health = health;
+        Debug.Log("Space ship health " + _health + " Incoming health" + health);
+    }
     public void ShipTakesDamage()
     {
         if (_health == 1)
         {
             if (_lives == 1)
             {
-                _health = 0;
-                _lives = 0;
-                livesBar.sprite = livesSprites[_lives];
-                healthBar.sprite = healthSprites[_health];
-                gameObject.SetActive(false);
-                Debug.Log("GameOver");
+                spaceShipStats.currentHealth = 0;
+                spaceShipStats.currentLives = 0;
+                healthBar.sprite = healthSprites[spaceShipStats.currentHealth];
+                livesBar.sprite = livesSprites[spaceShipStats.currentLives];
+                Destroy(gameObject);
+                _failGameDelegate(true);
             }
             else
             {
-                --_lives;
-                livesBar.sprite = livesSprites[_lives];                
+                --spaceShipStats.currentLives;
+                livesBar.sprite = livesSprites[spaceShipStats.currentLives];                
                 _health = 3;
-                healthBar.sprite = healthSprites[_health];
+                healthBar.sprite = healthSprites[spaceShipStats.currentHealth];
                 Explosion();
             }
         }
         else
         {
-            --_health;
-            healthBar.sprite = healthSprites[_health];
+            --spaceShipStats.currentHealth;
+            healthBar.sprite = healthSprites[spaceShipStats.currentHealth];
             Explosion();
         }
     }

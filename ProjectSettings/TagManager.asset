@@ -9,6 +9,8 @@ TagManager:
   - Bunker
   - SpaceShip
   - Laser
+  - Health Bar
+  - Lives Bar
   layers:
   - Default
   - TransparentFX
