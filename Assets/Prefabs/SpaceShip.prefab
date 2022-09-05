@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5949388441571408992}
   - component: {fileID: 5949388441571408993}
   - component: {fileID: 5949388441571408994}
-  - component: {fileID: 5949388441571408999}
+  - component: {fileID: -8696241896646246889}
   m_Layer: 0
   m_Name: SpaceShip
   m_TagString: SpaceShip
@@ -99,7 +99,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.24468213}
@@ -183,13 +183,6 @@ MonoBehaviour:
   shootCooldown: 0.5
   laserPrefab: {fileID: 7933210902948542079, guid: 133d60a2a7edf45cb943a8040aafb278, type: 3}
   explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
-  spaceShipStats:
-    maxHealth: 5
-    maxLives: 5
-    currentHealth: 3
-    currentLives: 3
-    shipSpeed: 15
-    missileSpeed: 3
   healthSprites:
   - {fileID: 21300000, guid: a7d2bdf7aa886d5459b5234969b25f88, type: 3}
   - {fileID: 21300000, guid: 9736c5b03231042c697a147e882add86, type: 3}
@@ -204,7 +197,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 776c9f4b6715246eb9afa93f4f181bb4, type: 3}
   - {fileID: 21300000, guid: 84c9415c2af7940ada70465ca47cdb1f, type: 3}
   - {fileID: 21300000, guid: 23423e376ba6e46dabe2bd17481b2002, type: 3}
---- !u!50 &5949388441571408999
+--- !u!50 &-8696241896646246889
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

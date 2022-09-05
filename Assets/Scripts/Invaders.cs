@@ -1,10 +1,10 @@
-using System.Collections;
 using UnityEngine;
 
 public class Invaders : MonoBehaviour
 {
     [SerializeField] private GameObject explosionPrefab;
     private GameObject _explosion;
+
     public void Kill()
     {
         GameManager.invaders.Remove(gameObject);

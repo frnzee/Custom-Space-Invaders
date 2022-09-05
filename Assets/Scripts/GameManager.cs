@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,24 +10,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject Bunkers;
     [SerializeField] private GameObject StartMenu;
     [SerializeField] private GameObject GameOverMenu;
+    [SerializeField] private GameObject UI_Canvas;
     [SerializeField] private GameObject SpinningEarth;
     [SerializeField] private GameObject InvadersSpawnField;
 
     [SerializeField] private SpaceShip spaceShipPrefab;
 
     [SerializeField] private CanvasGroup StartMenuCanvas;
+    [SerializeField] private CanvasGroup GameOverMenuCanvas;
 
     [SerializeField] private int rows;
     [SerializeField] private int columns;
 
-    public SpaceShipStats spaceShipStats;
-    private SpaceShip spaceShip;
-    private Action<int> _currentSpaceShipHealth;
-
     public static List<GameObject> invaders = new();
 
+    private SpaceShip spaceShip = null;
+
     private Vector3 hDistance = new(0.5f, 0, 0);
-    private Vector3 vDistance = new(0, 0.2f, 0);
+    private Vector3 vDistance = new(0, 0.25f, 0);
 
     private bool _isMissileLaunched = false;
     private bool _isMovingRight = true;
@@ -37,29 +36,21 @@ public class GameManager : MonoBehaviour
 
     private int _winCount = 0;
 
-
     private float _width;
     private float _height;
     private float _missilesCooldown = 3f;
     private float _moveSpeed = 0.02f;
     private float _maxMoveSpeed = 0.3f;
     private float _moveTimer = 1f;
+
     private readonly float _maxLeft = -25f;
     private readonly float _maxRight = 25f;
-
-    private Action<int> _healthDelegate;
 
     private enum GameState
     {
         None,
         Game,
-        Win,
         Fail
-    }
-
-    public void GetHealth(Action<int> health)
-    {
-        _currentSpaceShipHealth = health;
     }
 
     private GameState _currentGameState = GameState.None;
@@ -68,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         GameOverMenu.SetActive(false);
         StartMenu.SetActive(true);
+        UI_Canvas.SetActive(false);
     }
 
     public void StartGame()
@@ -76,13 +68,14 @@ public class GameManager : MonoBehaviour
 
         SpinningEarth.SetActive(true);
         Bunkers.SetActive(true);
+        UI_Canvas.SetActive(true);
 
         _fadeOut = true;
 
-        _width = 3 * (columns - 1);
-        _height = 3 * (rows - 1);
-
-        SpawnSpaceShip();
+        if (spaceShip == null)
+        {
+            SpawnSpaceShip();
+        }
 
         SpawnInvaders();
     }
@@ -97,6 +90,9 @@ public class GameManager : MonoBehaviour
 
     private void SpawnInvaders()
     {
+        _width = 3 * (columns - 1);
+        _height = 3 * (rows - 1);
+
         for (int row = 0; row < rows; ++row)
         {
             Vector2 centerOffset = new(-_width / 2, -_height / 2);
@@ -104,7 +100,7 @@ public class GameManager : MonoBehaviour
 
             for (int column = 0; column < columns; ++column)
             {
-                if (UnityEngine.Random.Range(0, 2) == 1)
+                if (Random.Range(0, 2) == 1)
                 {
                     GameObject invader = Instantiate(invaderPrefabs[row], InvadersSpawnField.transform);
                     Vector2 position = rowPosition;
@@ -126,10 +122,6 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
         }
-        else
-        {
-            Debug.Log("success delegate arrived to the final destination");
-        }
     }
 
     private IEnumerator MissileShoot()
@@ -138,7 +130,7 @@ public class GameManager : MonoBehaviour
         {
             _isMissileLaunched = true;
 
-            Vector2 position = invaders[UnityEngine.Random.Range(0, invaders.Count)].transform.position;
+            Vector2 position = invaders[Random.Range(0, invaders.Count)].transform.position;
             Instantiate(missilePrefab, position, Quaternion.identity);
 
             yield return new WaitForSeconds(_missilesCooldown);
@@ -204,6 +196,7 @@ public class GameManager : MonoBehaviour
         SpinningEarth.SetActive(false);
         Bunkers.SetActive(false);
         GameOverMenu.SetActive(true);
+        _fadeIn = true;
 
         invaders.Clear();
 
@@ -212,27 +205,23 @@ public class GameManager : MonoBehaviour
         {
             Destroy(invader);
         }
+
         Destroy(spaceShip);
     }
 
     public void Win()
     {
-        if (_currentGameState == GameState.Win)
-        {
-            _healthDelegate(spaceShipStats.currentHealth);
-            Debug.Log("Delegate came");
-            Destroy(GameObject.FindGameObjectWithTag("SpaceShip"));
-            ++_winCount;
-            _moveSpeed -= 0.005f;
-            _missilesCooldown -= 0.025f;
+        ++_winCount;
+        _moveSpeed -= 0.005f;
+        _maxMoveSpeed -= 0.02f;
+        _missilesCooldown -= 0.025f;
 
-            Debug.Log("Win count: " + _winCount);
-            Debug.Log(_moveSpeed);
-            Debug.Log(_missilesCooldown);
+        Debug.Log("Win count: " + _winCount);
+        Debug.Log("Move speed: " + _moveSpeed);
+        Debug.Log("Missiles cooldown: " + _missilesCooldown);
+        Debug.Log("Max speed: " + _maxMoveSpeed);
 
-            StartGame();
-            
-        }
+        StartGame();
     }
 
     private void Update()
@@ -252,13 +241,12 @@ public class GameManager : MonoBehaviour
 
         if (_fadeIn)
         {
-            if (StartMenuCanvas.alpha >= 0)
+            if (GameOverMenuCanvas.alpha <= 1)
             {
-                StartMenuCanvas.alpha -= Time.deltaTime;
-                if (StartMenuCanvas.alpha <= 0)
+                GameOverMenuCanvas.alpha += Time.deltaTime;
+                if (GameOverMenuCanvas.alpha >= 1)
                 {
                     _fadeIn = false;
-                    StartMenu.SetActive(false);
                 }
             }
         }
@@ -270,7 +258,6 @@ public class GameManager : MonoBehaviour
 
         if (invaders.Count <= 0 && _currentGameState == GameState.Game)
         {
-            _currentGameState = GameState.Win;
             Win();
         }
 
@@ -284,6 +271,5 @@ public class GameManager : MonoBehaviour
     public void Reset()
     {
         SceneManager.LoadScene("SpaceInvadersScene");
-        Debug.Log("reset");
     }
 }

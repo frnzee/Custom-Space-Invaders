@@ -323,6 +323,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bunker (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6596453362915359534, guid: e388df07e17784dd1ab1f512e2b9faad, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e388df07e17784dd1ab1f512e2b9faad, type: 3}
 --- !u!4 &172508090 stripped
@@ -576,7 +580,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 776c9f4b6715246eb9afa93f4f181bb4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7d2bdf7aa886d5459b5234969b25f88, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -684,6 +688,10 @@ PrefabInstance:
     - target: {fileID: 6596453362915359534, guid: e388df07e17784dd1ab1f512e2b9faad, type: 3}
       propertyPath: m_Name
       value: Bunker (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6596453362915359534, guid: e388df07e17784dd1ab1f512e2b9faad, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e388df07e17784dd1ab1f512e2b9faad, type: 3}
@@ -888,13 +896,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 410864974}
+  - component: {fileID: 410864975}
   m_Layer: 5
   m_Name: GameOverMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &410864974
 RectTransform:
   m_ObjectHideFlags: 0
@@ -918,6 +927,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -186}
   m_SizeDelta: {x: -660, y: -388}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &410864975
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410864973}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &450181294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1195,6 +1216,10 @@ PrefabInstance:
     - target: {fileID: 6596453362915359534, guid: e388df07e17784dd1ab1f512e2b9faad, type: 3}
       propertyPath: m_Name
       value: Bunker (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6596453362915359534, guid: e388df07e17784dd1ab1f512e2b9faad, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e388df07e17784dd1ab1f512e2b9faad, type: 3}
@@ -1738,7 +1763,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 776c9f4b6715246eb9afa93f4f181bb4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7d2bdf7aa886d5459b5234969b25f88, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1951,6 +1976,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bunker (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6596453362915359534, guid: e388df07e17784dd1ab1f512e2b9faad, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e388df07e17784dd1ab1f512e2b9faad, type: 3}
 --- !u!1 &1148985972
@@ -2126,19 +2155,14 @@ MonoBehaviour:
   Bunkers: {fileID: 249771944}
   StartMenu: {fileID: 1728374503}
   GameOverMenu: {fileID: 410864973}
+  UI_Canvas: {fileID: 1500529727}
   SpinningEarth: {fileID: 1148985972}
   InvadersSpawnField: {fileID: 1275565047}
   spaceShipPrefab: {fileID: 5949388441571408994, guid: 307ed769d39a38644a1ce02d2f7ac676, type: 3}
   StartMenuCanvas: {fileID: 1728374505}
+  GameOverMenuCanvas: {fileID: 410864975}
   rows: 5
   columns: 15
-  spaceShipStats:
-    maxHealth: 5
-    maxLives: 5
-    currentHealth: 3
-    currentLives: 3
-    shipSpeed: 0
-    missileSpeed: 0
 --- !u!4 &1309867440
 Transform:
   m_ObjectHideFlags: 0
@@ -2491,6 +2515,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bunker
       objectReference: {fileID: 0}
+    - target: {fileID: 6596453362915359534, guid: e388df07e17784dd1ab1f512e2b9faad, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e388df07e17784dd1ab1f512e2b9faad, type: 3}
 --- !u!1 &1728374503
@@ -2808,7 +2836,7 @@ GameObject:
   - component: {fileID: 2123017886}
   - component: {fileID: 2123017890}
   m_Layer: 5
-  m_Name: GameStartCanvas
+  m_Name: MenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

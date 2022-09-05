@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3290922130775575801}
   - component: {fileID: 93244795060924561}
   - component: {fileID: 740771677417836421}
-  - component: {fileID: -4372430682509288525}
+  - component: {fileID: -1740632722370352705}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Laser
@@ -30,6 +30,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 3, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,6 +46,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -124,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserSpeed: 50
---- !u!50 &-4372430682509288525
+--- !u!50 &-1740632722370352705
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

@@ -21,13 +21,17 @@ public class Missile : MonoBehaviour
         Destroy(_explosion, 1f);
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("SpaceShip"))
         {
             collision.gameObject.GetComponent<SpaceShip>().ShipTakesDamage();
             Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Bunker"))
+        {
+            _explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(_explosion, 0.5f);
         }
     }
 }
