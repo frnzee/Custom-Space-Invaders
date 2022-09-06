@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserSpeed: 50
+  _explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
 --- !u!50 &-1740632722370352705
 Rigidbody2D:
   serializedVersion: 4

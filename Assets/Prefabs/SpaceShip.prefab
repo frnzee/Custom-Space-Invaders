@@ -179,18 +179,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aac2f5933d3b4a8cb79b374fe7db875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipSpeed: 15
-  shootCooldown: 0.5
-  laserPrefab: {fileID: 7933210902948542079, guid: 133d60a2a7edf45cb943a8040aafb278, type: 3}
-  explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
-  healthSprites:
+  _shipSpeed: 15
+  _shootCooldown: 0.25
+  _laserPrefab: {fileID: 7933210902948542079, guid: 133d60a2a7edf45cb943a8040aafb278, type: 3}
+  _explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
+  _healthSprites:
   - {fileID: 21300000, guid: a7d2bdf7aa886d5459b5234969b25f88, type: 3}
   - {fileID: 21300000, guid: 9736c5b03231042c697a147e882add86, type: 3}
   - {fileID: 21300000, guid: 0267a2e468ba04089bf5b0e40e0ff53a, type: 3}
   - {fileID: 21300000, guid: 776c9f4b6715246eb9afa93f4f181bb4, type: 3}
   - {fileID: 21300000, guid: 84c9415c2af7940ada70465ca47cdb1f, type: 3}
   - {fileID: 21300000, guid: 23423e376ba6e46dabe2bd17481b2002, type: 3}
-  livesSprites:
+  _livesSprites:
   - {fileID: 21300000, guid: a7d2bdf7aa886d5459b5234969b25f88, type: 3}
   - {fileID: 21300000, guid: 9736c5b03231042c697a147e882add86, type: 3}
   - {fileID: 21300000, guid: 0267a2e468ba04089bf5b0e40e0ff53a, type: 3}

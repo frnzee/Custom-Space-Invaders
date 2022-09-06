@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f065bc153494422580593be3f010a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missileSpeed: 10
-  explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
+  _missileSpeed: 10
+  _explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
 --- !u!50 &6623850983537725058
 Rigidbody2D:
   serializedVersion: 4

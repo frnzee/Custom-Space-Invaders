@@ -1,18 +1,21 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Renderer))]
+
 public class Background : MonoBehaviour
 {
-    [SerializeField] private float speed;
-    private Renderer _backgroundRenderer;
+    [SerializeField] private float _speed;
 
-    void Start()
+    private Material _material;
+
+    private void Start()
     {
-        _backgroundRenderer= GetComponent<Renderer>();
+        _material = GetComponent<Renderer>().material;
     }
 
-    void Update()
+    private void Update()
     {
-        float offset = Time.time * speed;
-        _backgroundRenderer.material.SetTextureOffset("_MainTex", new Vector2(offset, 0));
+        float offset = Time.time * _speed;
+        _material.SetTextureOffset("_MainTex", new Vector2(offset, 0));
     }
 }

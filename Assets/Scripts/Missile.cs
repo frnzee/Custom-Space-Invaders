@@ -2,36 +2,40 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    [SerializeField] float missileSpeed = 10f;
+    [SerializeField] private float _missileSpeed = 10f;
+    [SerializeField] private GameObject _explosionPrefab;
 
-    private float _lifeTime = 3f;
-    public GameObject explosionPrefab;
     private GameObject _explosion;
-
-    void Update()
-    {
-        transform.Translate(missileSpeed * Time.deltaTime * Vector2.down);
-        Destroy(gameObject, _lifeTime);
-    }
 
     public void Kill()
     {
-        _explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        _explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
-        Destroy(_explosion, 1f);
+        Destroy(_explosion, 0.5f);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (collision.gameObject.CompareTag("SpaceShip"))
+        if (other.gameObject.CompareTag("SpaceShip"))
         {
-            collision.gameObject.GetComponent<SpaceShip>().ShipTakesDamage();
+            other.gameObject.GetComponent<SpaceShip>().ShipTakesDamage();
+            _explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
-        }
-        if (collision.gameObject.CompareTag("Bunker"))
-        {
-            _explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             Destroy(_explosion, 0.5f);
         }
+        if (other.gameObject.CompareTag("Bunker"))
+        {
+            _explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(_explosion, 0.5f);
+        }
+        if (other.gameObject.CompareTag("BottomBoundary"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Update()
+    {
+        transform.Translate(_missileSpeed * Time.deltaTime * Vector2.down);
     }
 }

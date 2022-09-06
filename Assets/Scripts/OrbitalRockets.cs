@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OrbitalRockets : MonoBehaviour
@@ -7,10 +5,6 @@ public class OrbitalRockets : MonoBehaviour
     public Transform target;
     public float rotationSpeed = 10f;
     private int _killCounter = 0;
-    void Update()
-    {
-        transform.RotateAround(target.position, Vector3.back, rotationSpeed * Time.deltaTime);
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -18,14 +12,19 @@ public class OrbitalRockets : MonoBehaviour
         {
             if (_killCounter < 4)
             {
-                collision.gameObject.GetComponent<Invaders>().Kill();
+                collision.gameObject.GetComponent<Invader>().Kill();
                 ++_killCounter;
             }
             else
             {
-                collision.gameObject.GetComponent<Invaders>().Kill();
+                collision.gameObject.GetComponent<Invader>().Kill();
                 Destroy(gameObject);
             }
         }
+    }
+
+    void Update()
+    {
+        transform.RotateAround(target.position, Vector3.back, rotationSpeed * Time.deltaTime);
     }
 }

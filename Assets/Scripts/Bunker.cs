@@ -2,31 +2,53 @@ using UnityEngine;
 
 public class Bunker : MonoBehaviour
 {
-    public Sprite[] conditions;
-    public SpriteRenderer currentCondition;
-    private int healhtLevel;
+    [SerializeField] private Sprite[] _conditions;
+    [SerializeField] private GameObject _explosionPrefab;
 
-    void Start()
+    private SpriteRenderer currentCondition;
+    private GameObject _explosion;
+
+    private int _healhtLevel;
+
+
+    private void Start()
     {
-        healhtLevel = 6;
+        _healhtLevel = 6;
         currentCondition = GetComponent<SpriteRenderer>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (collision.gameObject.CompareTag("Missile") ||
-            collision.gameObject.CompareTag("Laser"))
+        if (other.gameObject.CompareTag("Missile") ||
+            other.gameObject.CompareTag("Laser"))
         {
-            Destroy(collision.gameObject);
-            --healhtLevel;
-            if (healhtLevel <= 0)
+            Destroy(other.gameObject);
+            --_healhtLevel;
+            if (_healhtLevel <= 0)
             {
                 Destroy(gameObject);
             }
             else
             {
-                currentCondition.sprite = conditions[healhtLevel];
+                currentCondition.sprite = _conditions[_healhtLevel];
             }
+        }
+        
+        if (other.gameObject.CompareTag("Invaders"))
+        {
+            --_healhtLevel;
+            _explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(_explosion, 0.5f);
+
+            if (_healhtLevel <= 0)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                currentCondition.sprite = _conditions[_healhtLevel];
+            }
+
         }
     }
 }

@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27acdc4cae8ba4b498dfcfa568a6dcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conditions:
+  _conditions:
   - {fileID: 21300000, guid: dfee492ab37324f469844602b2421147, type: 3}
   - {fileID: 21300000, guid: 63ca4b9af846e4844840979c034a14bf, type: 3}
   - {fileID: 21300000, guid: df10ccc34a9304001a4d726a5f900aa8, type: 3}
@@ -133,7 +133,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1f11ca58c67b54f0c8f30bdd0c074a0e, type: 3}
   - {fileID: 21300000, guid: ec3da6860513842e7bd5d1ac58a69e76, type: 3}
   - {fileID: 21300000, guid: c8046dad504264c6a8599f67786f6802, type: 3}
-  currentCondition: {fileID: 0}
+  _explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
 --- !u!50 &7088767461659438006
 Rigidbody2D:
   serializedVersion: 4
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27acdc4cae8ba4b498dfcfa568a6dcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conditions:
+  _conditions:
   - {fileID: 21300000, guid: a8c41d5192e51405480e5d9c1a0b04ad, type: 3}
   - {fileID: 21300000, guid: 0b4837526394a40cbb70e6e475dd314c, type: 3}
   - {fileID: 21300000, guid: 8643bd2f54465439a88fa97843cb4312, type: 3}
@@ -288,7 +288,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1a5e6e8f40ebb461f914badf1d19b821, type: 3}
   - {fileID: 21300000, guid: 62cbe06eb86154684b1e259e401b41a5, type: 3}
   - {fileID: 21300000, guid: c8a9068555cac470dbd75500e542aa08, type: 3}
-  currentCondition: {fileID: 0}
+  _explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
 --- !u!50 &2865566703992903081
 Rigidbody2D:
   serializedVersion: 4
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27acdc4cae8ba4b498dfcfa568a6dcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conditions:
+  _conditions:
   - {fileID: 21300000, guid: dfee492ab37324f469844602b2421147, type: 3}
   - {fileID: 21300000, guid: 63ca4b9af846e4844840979c034a14bf, type: 3}
   - {fileID: 21300000, guid: df10ccc34a9304001a4d726a5f900aa8, type: 3}
@@ -443,7 +443,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1f11ca58c67b54f0c8f30bdd0c074a0e, type: 3}
   - {fileID: 21300000, guid: ec3da6860513842e7bd5d1ac58a69e76, type: 3}
   - {fileID: 21300000, guid: c8046dad504264c6a8599f67786f6802, type: 3}
-  currentCondition: {fileID: 0}
+  _explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
 --- !u!50 &916495417107240673
 Rigidbody2D:
   serializedVersion: 4
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27acdc4cae8ba4b498dfcfa568a6dcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conditions:
+  _conditions:
   - {fileID: 21300000, guid: a8c41d5192e51405480e5d9c1a0b04ad, type: 3}
   - {fileID: 21300000, guid: 0b4837526394a40cbb70e6e475dd314c, type: 3}
   - {fileID: 21300000, guid: 8643bd2f54465439a88fa97843cb4312, type: 3}
@@ -633,7 +633,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1a5e6e8f40ebb461f914badf1d19b821, type: 3}
   - {fileID: 21300000, guid: 62cbe06eb86154684b1e259e401b41a5, type: 3}
   - {fileID: 21300000, guid: c8a9068555cac470dbd75500e542aa08, type: 3}
-  currentCondition: {fileID: 0}
+  _explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
 --- !u!50 &263412462884736758
 Rigidbody2D:
   serializedVersion: 4
