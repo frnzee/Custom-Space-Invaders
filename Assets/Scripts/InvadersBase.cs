@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InvadersBase : MonoBehaviour
@@ -15,7 +13,7 @@ public class InvadersBase : MonoBehaviour
     private float _moveSpeed = 0.02f;
     private float _maxMoveSpeed = 0.3f;
     private float _missilesCooldown = 3f;
-    private float _defaultMissilesCooldown = 3f;
+    private readonly float _defaultMissilesCooldown = 3f;
 
     private const float MaxLeft = -25f;
     private const float MaxRight = 25f;

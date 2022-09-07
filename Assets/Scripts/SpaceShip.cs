@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 
 public class SpaceShip : MonoBehaviour
 {
-    [SerializeField] private float _shipSpeed = 15.0f;
+    [SerializeField] private float _shipSpeed = 20f;
     [SerializeField] private float _shootCooldown = 0.5f;
 
     [SerializeField] private GameObject _laserPrefab;

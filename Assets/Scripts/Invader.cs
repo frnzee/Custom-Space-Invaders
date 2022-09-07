@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Invader : MonoBehaviour
 {
-
     public void Kill()
     {
         GameManager.invaders.Remove(this);
@@ -12,7 +11,7 @@ public class Invader : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("SpaceShip") ||
-            other.gameObject.CompareTag("BottomBoundary"))
+            other.gameObject.CompareTag("Boundary"))
         {
             GameManager.Instance.GameOver();
         }

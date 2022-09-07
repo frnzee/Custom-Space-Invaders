@@ -2,17 +2,19 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    [SerializeField] float laserSpeed = 15f;
+    [SerializeField] float _laserSpeed = 50f;
     [SerializeField] private GameObject _explosionPrefab;
 
     private GameObject _explosion;
+
+    private const float DestroyTime = 0.5f;
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Invaders"))
         {
             _explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-            Destroy(_explosion, 0.5f);
+            Destroy(_explosion, DestroyTime);
             other.gameObject.GetComponent<Invader>().Kill();
             Destroy(gameObject);
         }
@@ -32,6 +34,6 @@ public class Laser : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(laserSpeed * Time.deltaTime * Vector2.up);
+        transform.Translate(_laserSpeed * Time.deltaTime * Vector2.up);
     }
 }

@@ -12,7 +12,6 @@ TagManager:
   - Health Bar
   - Lives Bar
   - Boundary
-  - BottomBoundary
   layers:
   - Default
   - TransparentFX

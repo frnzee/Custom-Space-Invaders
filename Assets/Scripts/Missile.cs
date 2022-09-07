@@ -7,11 +7,13 @@ public class Missile : MonoBehaviour
 
     private GameObject _explosion;
 
+    private const float DestroyTime = 0.5f;
+
     public void Kill()
     {
         _explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
-        Destroy(_explosion, 0.5f);
+        Destroy(_explosion, DestroyTime);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -21,14 +23,15 @@ public class Missile : MonoBehaviour
             other.gameObject.GetComponent<SpaceShip>().ShipTakesDamage();
             _explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
-            Destroy(_explosion, 0.5f);
+            Destroy(_explosion, DestroyTime);
         }
         if (other.gameObject.CompareTag("Bunker"))
         {
             _explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-            Destroy(_explosion, 0.5f);
+            Destroy(gameObject);
+            Destroy(_explosion, DestroyTime);
         }
-        if (other.gameObject.CompareTag("BottomBoundary"))
+        if (other.gameObject.CompareTag("Boundary"))
         {
             Destroy(gameObject);
         }

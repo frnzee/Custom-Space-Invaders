@@ -3,8 +3,8 @@ using UnityEngine;
 public class OrbitalRockets : MonoBehaviour
 {
     public Transform target;
-    public float rotationSpeed = 10f;
     private int _killCounter = 0;
+    public const float rotationSpeed = 15f;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

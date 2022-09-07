@@ -10,7 +10,6 @@ public class Bunker : MonoBehaviour
 
     private int _healhtLevel;
 
-
     private void Start()
     {
         _healhtLevel = 6;
@@ -22,7 +21,6 @@ public class Bunker : MonoBehaviour
         if (other.gameObject.CompareTag("Missile") ||
             other.gameObject.CompareTag("Laser"))
         {
-            Destroy(other.gameObject);
             --_healhtLevel;
             if (_healhtLevel <= 0)
             {
