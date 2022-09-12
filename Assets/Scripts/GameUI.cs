@@ -2,15 +2,34 @@ using UnityEngine;
 
 public class GameUI : MonoBehaviour
 {
+    private static GameUI _instance;
+    public static GameUI Instance
+    {
+        get
+        {
+            if (!_instance)
+            {
+                Debug.LogError("Instance not specified");
+            }
+            return _instance;
+        }
+    }
+
+    public GameObject SpinningEarth;
+
     [SerializeField] private GameObject _startGameMenu;
     [SerializeField] private GameObject _gameOverMenu;
     [SerializeField] private CanvasGroup _startMenuCanvasGroup;
     [SerializeField] private CanvasGroup _gameOverMenuCanvasGroup;
-    [SerializeField] private GameObject _spinningEarth;
     [SerializeField] private GameObject _bunkers;
 
     private bool _fadeIn = false;
     private bool _fadeOut = false;
+
+    private void Awake()
+    {
+        _instance = this;
+    }
 
     public void InitializeMenu()
     {
@@ -21,7 +40,7 @@ public class GameUI : MonoBehaviour
 
     public void StartMenuFadeOut()
     {
-        _spinningEarth.SetActive(true);
+        SpinningEarth.SetActive(true);
         _bunkers.SetActive(true);
 
         _fadeOut = true;
@@ -46,7 +65,7 @@ public class GameUI : MonoBehaviour
             if (_gameOverMenuCanvasGroup.alpha >= 1)
             {
                 _fadeIn = false;
-                _spinningEarth.SetActive(false);
+                SpinningEarth.SetActive(false);
                 _bunkers.SetActive(false);
             }
         }
@@ -61,6 +80,14 @@ public class GameUI : MonoBehaviour
         if (_fadeIn)
         {
             GameOverMenuFadeIn();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_instance == this)
+        {
+            _instance = null;
         }
     }
 }

@@ -2,76 +2,145 @@ using UnityEngine;
 
 public class SpaceShip : MonoBehaviour
 {
-    [SerializeField] private float _shipSpeed = 20f;
-    [SerializeField] private float _shootCooldown = 0.5f;
+    private static SpaceShip _instance;
+    public static SpaceShip Instance
+    {
+        get
+        {
+            if (!_instance)
+            {
+                Debug.LogError("Instance not specified");
+            }
+            return _instance;
+        }
+    }
 
-    [SerializeField] private GameObject _laserPrefab;
-    [SerializeField] private GameStats _gameStats;
-
-    private readonly float _maxLeft = -25f;
-    private readonly float _maxRight = 25f;
-
-
-    private int _health = 3;
-    private int _lives = 1;
-
-    private const float DefaultShootCooldown = 0.5f;
+    private const float MaxLeft = -25f;
+    private const float MaxRight = 25f;
+    private const float TripleShotTime = 10f;
+    private const float DefaultShipSpeed = 20f;
+    private const float SlowdownTime = 10f;
     private const int DefaultHealth = 3;
+
+    [SerializeField] private Laser _laserPrefab;
+
+    public int _health = 3;
+    public int _lives = 1;
+
+    private float _shipSpeed = 20f;
+    private float _tripleShotTimer;
+    private float _slowDownTimer;
+
+    public bool _readyToShoot = true;
+    public bool _tripleShotIsActive = false;
+    public bool _slowDownIsActive = false;
+
+    private void Awake()
+    {
+        _instance = this;
+    }
 
     private void Start()
     {
-        _gameStats = GameStats.Instance;
-        _gameStats.UpdateHealthLives(_health, _lives);
+        GameStatsUI.Instance.UpdateHealthLives(_health, _lives);
     }
 
-    private void Shoot()
+    private void Shot()
     {
-        Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+        Laser laser = Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+        _readyToShoot = false;
+        if (_tripleShotIsActive)
+        {
+            laser.TripleShot(true);
+        }
     }
 
     public void ShipTakesDamage()
     {
-        if (_health == 1)
+        if (GameManager.Instance._currentGameState == GameManager.GameState.Game)
         {
-            if (_lives == 1)
+            if (_health == 1)
             {
-                --_health;
-                --_lives;
+                if (_lives == 1)
+                {
+                    --_health;
+                    --_lives;
 
-                _gameStats.UpdateHealthLives(_health, _lives);
-
-                GameManager.Instance.GameOver();
-                Destroy(gameObject);
+                    GameStatsUI.Instance.UpdateHealthLives(_health, _lives);
+                    Debug.LogError("game over");
+                    GameManager.Instance.GameOver();
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    --_lives;
+                    _health = DefaultHealth;
+                    GameStatsUI.Instance.UpdateHealthLives(_health, _lives);
+                }
             }
             else
             {
-                --_lives;
-                _health = DefaultHealth;
-                _gameStats.UpdateHealthLives(_health, _lives);
+                --_health;
+                GameStatsUI.Instance.UpdateHealthLives(_health, _lives);
             }
-        }
-        else
-        {
-            --_health;
-            _gameStats.UpdateHealthLives(_health, _lives);
         }
     }
 
     private void Update()
     {
-        UpdateMoving();
-        UpdateShooting();
+        if (GameManager.Instance._currentGameState == GameManager.GameState.Game)
+        {
+            UpdateMoving();
+            UpdateShooting();
+            UpdateTripleShot();
+            UpdateSlowDown();
+        }
+    }
+
+    private void UpdateTripleShot()
+    {
+        if (_tripleShotIsActive && _tripleShotTimer >= 0)
+        {
+            _tripleShotTimer -= Time.deltaTime;
+            if (_tripleShotTimer <= 0)
+            {
+                _tripleShotIsActive = false;
+                _tripleShotTimer = TripleShotTime;
+            }
+        }
+    }
+
+    private void UpdateSlowDown()
+    {
+        if (_slowDownIsActive && _slowDownTimer >= 0)
+        {
+            _slowDownTimer -= Time.deltaTime;
+            if (_slowDownTimer <= 0)
+            {
+                _slowDownIsActive = false;
+                _slowDownTimer = SlowdownTime;
+            }
+        }
     }
 
     private void UpdateMoving()
     {
         var direction = Vector3.zero;
 
-        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && transform.position.x > _maxLeft)
+        if (_slowDownIsActive)
+        {
+            _shipSpeed = DefaultShipSpeed / 2;
+        }
+        else
+        {
+            _shipSpeed = DefaultShipSpeed;
+        }
+
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && transform.position.x > MaxLeft)
         {
             direction = Vector3.left;
         }
-        else if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && transform.position.x < _maxRight)
+        else if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && transform.position.x < MaxRight)
         {
             direction = Vector3.right;
         }
@@ -81,11 +150,17 @@ public class SpaceShip : MonoBehaviour
 
     private void UpdateShooting()
     {
-        _shootCooldown -= Time.deltaTime;
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && _shootCooldown <= 0)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && _readyToShoot == true)
         {
-            Shoot();
-            _shootCooldown = DefaultShootCooldown;
+            Shot();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_instance == this)
+        {
+            _instance = null;
         }
     }
 }

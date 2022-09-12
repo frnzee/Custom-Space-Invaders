@@ -2,49 +2,51 @@ using UnityEngine;
 
 public class Bunker : MonoBehaviour
 {
+    private const float DestroyTime = 0.5f;
+
     [SerializeField] private Sprite[] _conditions;
     [SerializeField] private GameObject _explosionPrefab;
 
-    private SpriteRenderer currentCondition;
+    private SpriteRenderer _currentCondition;
     private GameObject _explosion;
 
-    private int _healhtLevel;
+    private int _healthLevel = 6;
 
     private void Start()
     {
-        _healhtLevel = 6;
-        currentCondition = GetComponent<SpriteRenderer>();
+        _currentCondition = GetComponent<SpriteRenderer>();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Missile") ||
-            other.gameObject.CompareTag("Laser"))
+        if (other.gameObject.GetComponent<Missile>() ||
+            other.gameObject.GetComponent<Laser>())
         {
-            --_healhtLevel;
-            if (_healhtLevel <= 0)
+            --_healthLevel;
+            if (_healthLevel <= 0)
             {
                 Destroy(gameObject);
             }
             else
             {
-                currentCondition.sprite = _conditions[_healhtLevel];
+                _currentCondition.sprite = _conditions[_healthLevel];
             }
         }
         
-        if (other.gameObject.CompareTag("Invaders"))
+        if (other.gameObject.GetComponent<Invader>())
         {
-            --_healhtLevel;
-            _explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-            Destroy(_explosion, 0.5f);
+            --_healthLevel;
 
-            if (_healhtLevel <= 0)
+            _explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(_explosion, DestroyTime);
+
+            if (_healthLevel <= 0)
             {
                 Destroy(gameObject);
             }
             else
             {
-                currentCondition.sprite = _conditions[_healhtLevel];
+                _currentCondition.sprite = _conditions[_healthLevel];
             }
 
         }

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private enum GameState
+    public enum GameState
     {
         None,
         Game,
@@ -24,31 +24,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private GameState _currentGameState = GameState.None;
+    private const float SpeedReducer = 0.005f;
+    private const float MaxSpeedReducer = 0.02f;
+    private const float MissilesCooldownReducer = 0.05f;
+    private const int ShiftSpaceShipDown = -12;
+    private const int InvadersInterval = 3;
 
     [SerializeField] private GameObject _invadersSpawnField;
     [SerializeField] private Invader[] _invaderPrefabs;
     [SerializeField] private SpaceShip _spaceShipPrefab;
     [SerializeField] private GameUI _gameUI;
-    [SerializeField] private GameStats _gameStats;
-    [SerializeField] private InvadersBase _invadersBase;
+    [SerializeField] private InvadersController _invadersController;
+    [SerializeField] private LevelCounter _levelCounter;
 
     [SerializeField] private int _rows;
     [SerializeField] private int _columns;
 
-    public static List<Invader> invaders = new();
+    public List<Invader> invaders = new();
 
-    private SpaceShip _spaceShip = null;
+    public GameState _currentGameState = GameState.None;
 
-    private int _winCount = 0;
+    private SpaceShip _spaceShip;
+    private Vector2 _defaultShipPosition;
+
+    private int _currentLevel = 1;
 
     private float _width;
     private float _height;
-
-    private const int ShiftSpaceShipDown = -12;
-    private const float SpeedReducer = 0.005f;
-    private const float MaxSpeedReducer = 0.02f;
-    private const float MissilesCooldownReducer = 0.05f;
 
     private void Awake()
     {
@@ -58,17 +60,16 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _gameUI.InitializeMenu();
-        _gameStats.DisableGameStats();
+        GameStatsUI.Instance.DisableGameStats();
     }
 
     public void StartGame()
     {
-        _currentGameState = GameState.Game;
-
-        _gameStats.InitGameStats();
+        _levelCounter.LevelStart(_currentLevel, true);
+        GameStatsUI.Instance.InitGameStats();
         _gameUI.StartMenuFadeOut();
 
-        if (_spaceShip == null)
+        if (!_spaceShip)
         {
             SpawnSpaceShip();
         }
@@ -78,20 +79,20 @@ public class GameManager : MonoBehaviour
 
     private void SpawnSpaceShip()
     {
-        Vector2 shipPosition = new(0, ShiftSpaceShipDown);
+        _defaultShipPosition = new Vector2(0, ShiftSpaceShipDown);
         _spaceShip = Instantiate(_spaceShipPrefab, transform);
-        _spaceShip.transform.position = shipPosition;
+        _spaceShip.transform.position = _defaultShipPosition;
     }
 
     private void SpawnInvaders()
     {
-        _width = 3 * (_columns - 1);
-        _height = 3 * (_rows - 1);
+        _width = InvadersInterval * (_columns - 1);
+        _height = InvadersInterval * (_rows - 1);
 
         for (int i = 0; i < _rows; ++i)
         {
             var centerOffset = new Vector2(-_width / 2, -_height / 2);
-            var rowPosition = new Vector2(centerOffset.x, 3 * i + centerOffset.y);
+            var rowPosition = new Vector2(centerOffset.x, centerOffset.y + 3 * i);
 
             for (int j = 0; j < _columns; ++j)
             {
@@ -99,7 +100,7 @@ public class GameManager : MonoBehaviour
                 {
                     Invader invader = Instantiate(_invaderPrefabs[i], _invadersSpawnField.transform);
                     Vector2 position = rowPosition;
-                    position.x += 3 * j;
+                    position.x += InvadersInterval * j;
                     invader.transform.localPosition = position;
                     invaders.Add(invader);
                 }
@@ -113,10 +114,11 @@ public class GameManager : MonoBehaviour
 
         _gameUI.GameOverMenuFadeIn();
 
-        foreach (Invader invader in invaders)
+        foreach (var invader in invaders)
         {
-            Destroy(invader);
+            Destroy(invader.gameObject);
         }
+
         invaders.Clear();
 
         Destroy(_spaceShip);
@@ -124,9 +126,14 @@ public class GameManager : MonoBehaviour
 
     private void Win()
     {
-        ++_winCount;
-        _invadersBase.UpdateInvadersSpeed(SpeedReducer, MaxSpeedReducer, MissilesCooldownReducer);
-        Debug.Log("Win count: " + _winCount);
+        _currentGameState = GameState.None;
+
+        _invadersController.UpdateInvadersSpeed(SpeedReducer, MaxSpeedReducer, MissilesCooldownReducer);
+
+        ++_currentLevel;
+
+        _spaceShip.transform.position = _defaultShipPosition;
+
         StartGame();
     }
 

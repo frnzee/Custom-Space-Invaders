@@ -180,9 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shipSpeed: 20
-  _shootCooldown: 0.25
-  _laserPrefab: {fileID: 7933210902948542079, guid: 133d60a2a7edf45cb943a8040aafb278, type: 3}
-  _gameStats: {fileID: 0}
+  _laserPrefab: {fileID: 740771677417836421, guid: 133d60a2a7edf45cb943a8040aafb278, type: 3}
+  _readyToShoot: 1
 --- !u!50 &-8696241896646246889
 Rigidbody2D:
   serializedVersion: 4
