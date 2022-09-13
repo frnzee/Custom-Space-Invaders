@@ -48,7 +48,6 @@ public class Bunker : MonoBehaviour
             {
                 _currentCondition.sprite = _conditions[_healthLevel];
             }
-
         }
     }
 }

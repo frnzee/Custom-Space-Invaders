@@ -17,9 +17,9 @@ public class SpaceShip : MonoBehaviour
 
     private const float MaxLeft = -25f;
     private const float MaxRight = 25f;
-    private const float TripleShotTime = 10f;
     private const float DefaultShipSpeed = 20f;
     private const float SlowdownTime = 10f;
+    private const float TripleShotTime = 10f;
     private const int DefaultHealth = 3;
 
     [SerializeField] private Laser _laserPrefab;
@@ -28,8 +28,8 @@ public class SpaceShip : MonoBehaviour
     public int _lives = 1;
 
     private float _shipSpeed = 20f;
-    private float _tripleShotTimer;
-    private float _slowDownTimer;
+    private float _tripleShotTimer = 10f;
+    private float _slowDownTimer = 10f;
 
     public bool _readyToShoot = true;
     public bool _tripleShotIsActive = false;
@@ -51,7 +51,7 @@ public class SpaceShip : MonoBehaviour
         _readyToShoot = false;
         if (_tripleShotIsActive)
         {
-            laser.TripleShot(true);
+            laser.TripleShot();
         }
     }
 
@@ -67,7 +67,6 @@ public class SpaceShip : MonoBehaviour
                     --_lives;
 
                     GameStatsUI.Instance.UpdateHealthLives(_health, _lives);
-                    Debug.LogError("game over");
                     GameManager.Instance.GameOver();
                     Destroy(gameObject);
                 }
@@ -99,7 +98,7 @@ public class SpaceShip : MonoBehaviour
 
     private void UpdateTripleShot()
     {
-        if (_tripleShotIsActive && _tripleShotTimer >= 0)
+        if (_tripleShotIsActive && _tripleShotTimer > 0)
         {
             _tripleShotTimer -= Time.deltaTime;
             if (_tripleShotTimer <= 0)
@@ -112,7 +111,7 @@ public class SpaceShip : MonoBehaviour
 
     private void UpdateSlowDown()
     {
-        if (_slowDownIsActive && _slowDownTimer >= 0)
+        if (_slowDownIsActive && _slowDownTimer > 0)
         {
             _slowDownTimer -= Time.deltaTime;
             if (_slowDownTimer <= 0)

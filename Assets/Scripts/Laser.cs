@@ -8,19 +8,11 @@ public class Laser : MonoBehaviour
     [SerializeField] private Laser _laserPrefab;
     [SerializeField] private GameObject _explosionPrefab;
 
-    public static bool _tripleShotIsActive = false;
-
-    public void TripleShot(bool tripleShotIsActive)
+    public void TripleShot()
     {
         SpaceShip.Instance._readyToShoot = false;
-
-        _tripleShotIsActive = tripleShotIsActive;
-
-        if (_tripleShotIsActive)
-        {
-            Instantiate(_laserPrefab, transform.position, Quaternion.Euler(0, 0, 60));
-            Instantiate(_laserPrefab, transform.position, Quaternion.Euler(0, 0, -60));
-        }
+        Instantiate(_laserPrefab, transform.position, Quaternion.Euler(0, 0, 60));
+        Instantiate(_laserPrefab, transform.position, Quaternion.Euler(0, 0, -60));
     }
 
     private void OnCollisionEnter2D(Collision2D other)

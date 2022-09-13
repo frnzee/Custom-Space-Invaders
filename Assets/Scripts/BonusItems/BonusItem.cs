@@ -9,9 +9,10 @@ public class BonusItem : MonoBehaviour
 
     private SpriteRenderer _currentItemSprite;
     private int _currentItem;
+
     public void Start()
     {
-
+        Destroy(gameObject, 10f);
     }
     public void Initialize()
     {

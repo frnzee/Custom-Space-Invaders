@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class DestroyInvadersRow : MonoBehaviour
 {
+    private const int BonusItemDropChance = 14;
     private const float DestroyTime = 0.5f;
 
     [SerializeField] private GameObject _explosionPrefab;
+    [SerializeField] private GameObject _destroyRowPrefab;
+    [SerializeField] private BonusItem _bonusItemPrefab;
 
     private Vector2 _minPosition = new(0, 999999);
 
@@ -25,10 +28,19 @@ public class DestroyInvadersRow : MonoBehaviour
                 if (GameManager.Instance.invaders[i].transform.position.y <= _minPosition.y)
                 {
                     Vector3 currentPosition = GameManager.Instance.invaders[i].transform.position;
+                    Vector3 laserPosition = new Vector3(2.5f, currentPosition.y);
+
+                    GameObject destroyRowLaser = Instantiate(_destroyRowPrefab, laserPosition, Quaternion.identity);
+                    Destroy(destroyRowLaser, DestroyTime * 2);
 
                     GameObject _explosion = Instantiate(_explosionPrefab, currentPosition, Quaternion.identity);
-
                     Destroy(_explosion, DestroyTime);
+
+                    if (Random.Range(0, 100) < BonusItemDropChance)
+                    {
+                        var bonusItem = Instantiate(_bonusItemPrefab, currentPosition, Quaternion.identity);
+                        bonusItem.Initialize();
+                    }
 
                     Destroy(GameManager.Instance.invaders[i].gameObject);
                     GameManager.Instance.invaders.Remove(GameManager.Instance.invaders[i]);
