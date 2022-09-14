@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class DestroyInvadersRow : MonoBehaviour
@@ -39,7 +40,6 @@ public class DestroyInvadersRow : MonoBehaviour
                     if (Random.Range(0, 100) < BonusItemDropChance)
                     {
                         var bonusItem = Instantiate(_bonusItemPrefab, currentPosition, Quaternion.identity);
-                        bonusItem.Initialize();
                     }
 
                     Destroy(GameManager.Instance.invaders[i].gameObject);

@@ -179,9 +179,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aac2f5933d3b4a8cb79b374fe7db875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shipSpeed: 20
   _laserPrefab: {fileID: 740771677417836421, guid: 133d60a2a7edf45cb943a8040aafb278, type: 3}
+  _tripleLaserPrefab: {fileID: 716878345486395883, guid: ec0d426c3d3a1473fab72b863c2417b4, type: 3}
+  _health: 3
+  _lives: 1
   _readyToShoot: 1
+  _tripleShotIsActive: 0
+  _slowDownIsActive: 0
 --- !u!50 &-8696241896646246889
 Rigidbody2D:
   serializedVersion: 4

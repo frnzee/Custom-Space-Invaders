@@ -13,6 +13,8 @@ public class Laser : MonoBehaviour
         SpaceShip.Instance._readyToShoot = false;
         Instantiate(_laserPrefab, transform.position, Quaternion.Euler(0, 0, 60));
         Instantiate(_laserPrefab, transform.position, Quaternion.Euler(0, 0, -60));
+        ++SpaceShip.Instance.laserCounter;
+        ++SpaceShip.Instance.laserCounter;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -24,8 +26,6 @@ public class Laser : MonoBehaviour
 
             other.gameObject.GetComponent<Invader>().Kill();
 
-            SpaceShip.Instance._readyToShoot = true;
-
             Destroy(gameObject);
         }
 
@@ -33,16 +33,12 @@ public class Laser : MonoBehaviour
         {
             other.gameObject.GetComponent<Missile>().Kill();
 
-            SpaceShip.Instance._readyToShoot = true;
-
             Destroy(gameObject);
         }
 
         if (other.gameObject.GetComponent<Boundary>() ||
             other.gameObject.GetComponent<Bunker>())
         {
-            SpaceShip.Instance._readyToShoot = true;
-
             Destroy(gameObject);
         }
     }
@@ -50,5 +46,11 @@ public class Laser : MonoBehaviour
     private void Update()
     {
         transform.Translate(_laserSpeed * Time.deltaTime * Vector2.up);
+    }
+
+    private void OnDestroy()
+    {
+        SpaceShip.Instance._readyToShoot = true;
+        --SpaceShip.Instance.laserCounter;
     }
 }

@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da6a62b4067fe4ef9a165f10ecab7875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deathStarPrefab: {fileID: 2600100216137701634, guid: 682ea35d56be54e5ba13024ba599bdf3, type: 3}
   _explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
   _destroyRowPrefab: {fileID: 2600100216137701634, guid: 41d2004511d87534aaaf2fc7a7b0c81e, type: 3}
   _bonusItemPrefab: {fileID: 2993253369474589485, guid: a38254a576309401cab1222b2f04a460, type: 3}

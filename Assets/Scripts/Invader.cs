@@ -15,7 +15,6 @@ public class Invader : MonoBehaviour
         if (Random.Range(0, 100) < BonusItemDropChance)
         {
             var bonusItem = Instantiate(_bonusItemPrefab, transform.position, Quaternion.identity);
-            bonusItem.Initialize();
         }
 
         GameManager.Instance.invaders.Remove(this);

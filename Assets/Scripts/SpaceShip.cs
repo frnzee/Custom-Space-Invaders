@@ -23,6 +23,9 @@ public class SpaceShip : MonoBehaviour
     private const int DefaultHealth = 3;
 
     [SerializeField] private Laser _laserPrefab;
+    [SerializeField] private TripleLaser _tripleLaserPrefab;
+
+    public int laserCounter = 0;
 
     public int _health = 3;
     public int _lives = 1;
@@ -49,6 +52,9 @@ public class SpaceShip : MonoBehaviour
     {
         Laser laser = Instantiate(_laserPrefab, transform.position, Quaternion.identity);
         _readyToShoot = false;
+
+        ++laserCounter;
+
         if (_tripleShotIsActive)
         {
             laser.TripleShot();
@@ -151,7 +157,10 @@ public class SpaceShip : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && _readyToShoot == true)
         {
-            Shot();
+            if (laserCounter <= 0)
+            {
+                Shot();
+            }
         }
     }
 

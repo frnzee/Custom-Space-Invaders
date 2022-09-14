@@ -12,14 +12,13 @@ public class BonusItem : MonoBehaviour
 
     public void Start()
     {
-        Destroy(gameObject, 10f);
-    }
-    public void Initialize()
-    {
         _currentItem = Random.Range(0, _bonusItemSprites.Length);
         _currentItemSprite = GetComponent<SpriteRenderer>();
         _currentItemSprite.sprite = _bonusItemSprites[_currentItem];
+
+        Destroy(gameObject, 10f);
     }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.GetComponent<SpaceShip>())
@@ -32,6 +31,7 @@ public class BonusItem : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     private void Update()
     {
         transform.Translate(BonusItemSpeed * Time.deltaTime * Vector2.down);

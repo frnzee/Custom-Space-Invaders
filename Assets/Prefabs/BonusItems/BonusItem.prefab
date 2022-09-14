@@ -55,12 +55,12 @@ MonoBehaviour:
   - {fileID: 718346536163686521, guid: 3e68e1437b0be40998a11571cdf1baae, type: 3}
   - {fileID: 2819845009700547629, guid: 5190faadf06724116a14e8524724115f, type: 3}
   _bonusItemSprites:
-  - {fileID: 21300000, guid: 8ba03f698b846433cb83d624864b877e, type: 3}
-  - {fileID: 21300000, guid: dad6a5cac25ac6a43a26c5e077f9702a, type: 3}
-  - {fileID: 21300000, guid: 911a941328660431ba3723879cb4b383, type: 3}
-  - {fileID: 21300000, guid: 216cd3fca77ef4d8884f7b4001fa0560, type: 3}
-  - {fileID: 21300000, guid: 12713c8c0b033409ba50dd58e24918d5, type: 3}
-  - {fileID: 21300000, guid: ad2a9bced372b447a8d2e76a39f9a402, type: 3}
+  - {fileID: 21300000, guid: b5d97f7a5561b405f9abf4b917785f0b, type: 3}
+  - {fileID: 21300000, guid: fac9c399c70be4a1a8c0256eec6b24fa, type: 3}
+  - {fileID: 21300000, guid: 0cfbb9e55ae814e249a2f3b2763c8d0d, type: 3}
+  - {fileID: 21300000, guid: 625e670a0938a400eb5cc401a5fb65d0, type: 3}
+  - {fileID: 21300000, guid: 230fdf94653e64856ba962230d9ea8c9, type: 3}
+  - {fileID: 21300000, guid: f5a28d7d3a80941d79fcbc4ef7ae83ab, type: 3}
 --- !u!212 &-3319913515680906218
 SpriteRenderer:
   m_ObjectHideFlags: 0
