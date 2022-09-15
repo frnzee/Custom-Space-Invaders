@@ -11,8 +11,10 @@ public class Laser : MonoBehaviour
     public void TripleShot()
     {
         SpaceShip.Instance._readyToShoot = false;
+
         Instantiate(_laserPrefab, transform.position, Quaternion.Euler(0, 0, 60));
         Instantiate(_laserPrefab, transform.position, Quaternion.Euler(0, 0, -60));
+
         ++SpaceShip.Instance.laserCounter;
         ++SpaceShip.Instance.laserCounter;
     }

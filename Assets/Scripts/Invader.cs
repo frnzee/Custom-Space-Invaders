@@ -33,6 +33,7 @@ public class Invader : MonoBehaviour
             GameManager.Instance.invaders.Remove(this);
             Destroy(gameObject);
         }
+
         if (other.gameObject.GetComponent<Boundary>())
         {
             GameManager.Instance.GameOver();
