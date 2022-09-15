@@ -33,9 +33,9 @@ public class SpaceShip : MonoBehaviour
     private float _tripleShotTimer = 10f;
     private float _slowDownTimer = 10f;
 
-    public bool _readyToShoot = true;
-    public bool _tripleShotIsActive = false;
-    public bool _slowDownIsActive = false;
+    private bool _readyToShoot = true;
+    private bool _tripleShotIsActive = false;
+    private bool _slowDownIsActive = false;
 
     private void Awake()
     {
@@ -58,6 +58,21 @@ public class SpaceShip : MonoBehaviour
         {
             laser.TripleShot();
         }
+    }
+
+    public void ReadyToShoot(bool state)
+    {
+        _readyToShoot = state;
+    }
+
+    public void TripleShot()
+    {
+        _tripleShotIsActive = true;
+    }
+
+    public void SlowDown()
+    {
+        _slowDownIsActive = true;
     }
 
     public void ShipTakesDamage()

@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    private const float DestroyTime = 0.5f;
 
     [SerializeField] float _laserSpeed = 50f;
     [SerializeField] private Laser _laserPrefab;
-    [SerializeField] private GameObject _explosionPrefab;
 
     public void TripleShot()
     {
-        SpaceShip.Instance._readyToShoot = false;
+        SpaceShip.Instance.ReadyToShoot(false);
 
         Instantiate(_laserPrefab, transform.position, Quaternion.Euler(0, 0, 60));
         Instantiate(_laserPrefab, transform.position, Quaternion.Euler(0, 0, -60));
@@ -23,9 +21,6 @@ public class Laser : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Invader>())
         {
-            GameObject _explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-            Destroy(_explosion, DestroyTime);
-
             other.gameObject.GetComponent<Invader>().Kill();
 
             Destroy(gameObject);
@@ -52,7 +47,7 @@ public class Laser : MonoBehaviour
 
     private void OnDestroy()
     {
-        SpaceShip.Instance._readyToShoot = true;
+        SpaceShip.Instance.ReadyToShoot(true);
         --SpaceShip.Instance.laserCounter;
     }
 }

@@ -4,7 +4,7 @@ public class SlowdownSpaceShip : MonoBehaviour
 {
     private void Start()
     {
-        SpaceShip.Instance._slowDownIsActive = true;
+        SpaceShip.Instance.SlowDown();
         Destroy(gameObject);
     }
 }

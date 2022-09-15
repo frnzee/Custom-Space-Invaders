@@ -26,6 +26,7 @@ public class BonusItem : MonoBehaviour
             Instantiate(_bonusItemPrefabs[_currentItem]);
             Destroy(gameObject);
         }
+
         if (other.gameObject.GetComponent<Boundary>())
         {
             Destroy(gameObject);

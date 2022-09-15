@@ -4,7 +4,7 @@ public class TripleShot : MonoBehaviour
 {
     void Start()
     {
-        SpaceShip.Instance._tripleShotIsActive = true;
+        SpaceShip.Instance.TripleShot();
         Destroy(gameObject);
     }
 }

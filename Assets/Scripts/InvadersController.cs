@@ -7,7 +7,7 @@ public class InvadersController : MonoBehaviour
     private Vector3 _horizontalDistance = new(0.5f, 0, 0);
     private Vector3 _verticalDistance = new(0, 0.25f, 0);
 
-    private bool _isMovingRight;
+    private bool _isMovingRight = true;
 
     private float _moveTimer = 1f;
     private float _moveSpeed = 0.025f;
@@ -35,6 +35,7 @@ public class InvadersController : MonoBehaviour
                 {
                     invader.transform.position -= _horizontalDistance;
                 }
+
                 if (invader.transform.position.x > MaxRight || invader.transform.position.x < MaxLeft)
                 {
                     ++hitSide;
@@ -47,6 +48,7 @@ public class InvadersController : MonoBehaviour
                 {
                     invader.transform.position -= _verticalDistance;
                 }
+
                 _isMovingRight = !_isMovingRight;
 
                 _missilesCooldown -= MissilesCooldownReducer;
