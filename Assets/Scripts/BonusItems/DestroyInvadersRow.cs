@@ -7,7 +7,7 @@ public class DestroyInvadersRow : MonoBehaviour
     [SerializeField] private GameObject _destroyRowPrefab;
     [SerializeField] private BonusItem _bonusItemPrefab;
 
-    private Vector2 _minPosition = new(0, 999999);
+    private Vector2 _minPosition = new(0, Mathf.Infinity);
 
     private void Start()
     {

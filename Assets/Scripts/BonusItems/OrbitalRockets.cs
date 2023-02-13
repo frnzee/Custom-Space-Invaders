@@ -4,12 +4,14 @@ public class OrbitalRockets : MonoBehaviour
 {
     private const float RotationSpeed = 10f;
     private const int MaxKillCount = 5;
+    private const float DistanceModifier = 2f;
 
     private int _killCounter = 0;
 
     private void Start()
     {
-        transform.RotateAround(GameUI.Instance.SpinningEarth.GetComponent<Transform>().position, Vector3.back, -37);
+        transform.position = new Vector2(transform.position.x, transform.position.y * Random.Range(0, DistanceModifier));
+        transform.RotateAround(GameUI.Instance.SpinningEarth.GetComponent<Transform>().position, Vector3.back, -40);
     }
 
     private void OnCollisionEnter2D(Collision2D other)

@@ -13,8 +13,8 @@ public class Laser : MonoBehaviour
         Instantiate(_laserPrefab, transform.position, Quaternion.Euler(0, 0, 60));
         Instantiate(_laserPrefab, transform.position, Quaternion.Euler(0, 0, -60));
 
-        ++SpaceShip.Instance.laserCounter;
-        ++SpaceShip.Instance.laserCounter;
+        ++SpaceShip.Instance.LaserCounter;
+        ++SpaceShip.Instance.LaserCounter;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -48,6 +48,6 @@ public class Laser : MonoBehaviour
     private void OnDestroy()
     {
         SpaceShip.Instance.ReadyToShoot(true);
-        --SpaceShip.Instance.laserCounter;
+        --SpaceShip.Instance.LaserCounter;
     }
 }

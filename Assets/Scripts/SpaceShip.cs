@@ -21,13 +21,14 @@ public class SpaceShip : MonoBehaviour
     private const float SlowdownTime = 10f;
     private const float TripleShotTime = 10f;
     private const int DefaultHealth = 3;
+    private const int DefaultLives = 1;
 
     [SerializeField] private Laser _laserPrefab;
 
-    public int laserCounter = 0;
+    public int LaserCounter = 0;
 
-    public int _health = 3;
-    public int _lives = 1;
+    public int Health { get; private set; }
+    public int Lives { get; private set; }
 
     private float _shipSpeed = 20f;
     private float _tripleShotTimer = 10f;
@@ -44,7 +45,9 @@ public class SpaceShip : MonoBehaviour
 
     private void Start()
     {
-        GameStatsUI.Instance.UpdateHealthLives(_health, _lives);
+        Health = DefaultHealth;
+        Lives = DefaultLives;
+        GameStatsUI.Instance.UpdateHealthLives(Health, Lives);
     }
 
     private void Shot()
@@ -52,7 +55,7 @@ public class SpaceShip : MonoBehaviour
         Laser laser = Instantiate(_laserPrefab, transform.position, Quaternion.identity);
         _readyToShoot = false;
 
-        ++laserCounter;
+        ++LaserCounter;
 
         if (_tripleShotIsActive)
         {
@@ -79,29 +82,57 @@ public class SpaceShip : MonoBehaviour
     {
         if (GameManager.Instance._currentGameState == GameManager.GameState.Game)
         {
-            if (_health == 1)
+            if (Health == 1)
             {
-                if (_lives == 1)
+                if (Lives == 1)
                 {
-                    --_health;
-                    --_lives;
+                    --Health;
+                    --Lives;
 
-                    GameStatsUI.Instance.UpdateHealthLives(_health, _lives);
+                    GameStatsUI.Instance.UpdateHealthLives(Health, Lives);
                     GameManager.Instance.GameOver();
                     Destroy(gameObject);
                 }
                 else
                 {
-                    --_lives;
-                    _health = DefaultHealth;
-                    GameStatsUI.Instance.UpdateHealthLives(_health, _lives);
+                    --Lives;
+                    Health = DefaultHealth;
+                    GameStatsUI.Instance.UpdateHealthLives(Health, Lives);
                 }
             }
             else
             {
-                --_health;
-                GameStatsUI.Instance.UpdateHealthLives(_health, _lives);
+                --Health;
+                GameStatsUI.Instance.UpdateHealthLives(Health, Lives);
             }
+        }
+    }
+
+    public void HealUp()
+    {
+        if (Health >= 5 && Lives < 5)
+        {
+            ++Lives;
+            Health = 1;
+        }
+        else if (Lives >= 5)
+        {
+        }
+        else
+        {
+            ++Health;
+        }
+    }
+
+    public void LivesUp()
+    {
+        if (Lives >= 5)
+        {
+            Health = 5;
+        }
+        else
+        {
+            ++Lives;
         }
     }
 
@@ -169,7 +200,7 @@ public class SpaceShip : MonoBehaviour
 
     private void UpdateShooting()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && _readyToShoot == true && laserCounter <= 0)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && _readyToShoot == true && LaserCounter <= 0)
         {
             Shot();
         }
