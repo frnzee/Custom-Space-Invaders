@@ -100,7 +100,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.000000007450581, y: -0.00038517267}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -111,7 +111,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.125, y: 0.375}
+  m_Size: {x: 0.16129671, y: 0.37759495}
   m_EdgeRadius: 0
 --- !u!114 &740771677417836421
 MonoBehaviour:
@@ -127,7 +127,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserSpeed: 50
   _laserPrefab: {fileID: 740771677417836421}
-  _explosionPrefab: {fileID: 5876225813647814275, guid: c81ad7af2e613488685592baf8f5c71e, type: 3}
 --- !u!50 &-1740632722370352705
 Rigidbody2D:
   serializedVersion: 4
@@ -147,5 +146,5 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0

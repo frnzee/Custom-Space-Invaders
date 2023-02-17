@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-
+    private const float TimeToDestroy = 3f;
     [SerializeField] float _laserSpeed = 50f;
     [SerializeField] private Laser _laserPrefab;
+
+    private void Start()
+    {
+        Destroy(gameObject, TimeToDestroy);
+    }
 
     public void TripleShot()
     {

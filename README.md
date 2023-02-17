@@ -7,4 +7,6 @@ Platform: PC
 
 Link to gameplay example video - https://youtu.be/aouRZ4vmDsw
 
+Link to Android build .apk - https://drive.google.com/file/d/14o-p3o7jG1VD7pM02FDvJoutoc0WHWsT
+
 ![screenshot](/Assets/Images/Space%20invaders.png)

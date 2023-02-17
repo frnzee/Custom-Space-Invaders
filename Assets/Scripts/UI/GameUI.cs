@@ -22,6 +22,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] private CanvasGroup _startMenuCanvasGroup;
     [SerializeField] private CanvasGroup _gameOverMenuCanvasGroup;
     [SerializeField] private GameObject _bunkers;
+    [SerializeField] private GameObject _mobileControls;
 
     private bool _fadeIn = false;
     private bool _fadeOut = false;
@@ -34,6 +35,7 @@ public class GameUI : MonoBehaviour
     public void InitializeMenu()
     {
         _gameOverMenu.SetActive(false);
+        _mobileControls.SetActive(false);
         _startGameMenu.SetActive(true);
         _gameOverMenuCanvasGroup.alpha = 0;
     }
@@ -69,6 +71,11 @@ public class GameUI : MonoBehaviour
                 _bunkers.SetActive(false);
             }
         }
+    }
+
+    public void ShowMobileControls()
+    {
+        _mobileControls.SetActive(true);
     }
 
     private void Update()

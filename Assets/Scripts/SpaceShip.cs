@@ -25,14 +25,18 @@ public class SpaceShip : MonoBehaviour
 
     [SerializeField] private Laser _laserPrefab;
 
+    private MobileJoystick _mobileJoystick;
+    private ShootButton _shootButton;
+
     public int LaserCounter = 0;
 
     public int Health { get; private set; }
     public int Lives { get; private set; }
 
-    private float _shipSpeed = 20f;
-    private float _tripleShotTimer = 10f;
-    private float _slowDownTimer = 10f;
+    private float _shipSpeed = DefaultShipSpeed;
+    private float _tripleShotTimer = TripleShotTime;
+    private float _slowDownTimer = SlowdownTime;
+    private float _mobileInput;
 
     private bool _readyToShoot = true;
     private bool _tripleShotIsActive = false;
@@ -48,6 +52,12 @@ public class SpaceShip : MonoBehaviour
         Health = DefaultHealth;
         Lives = DefaultLives;
         GameStatsUI.Instance.UpdateHealthLives(Health, Lives);
+    }
+
+    public void InitializeControls(MobileJoystick mobileJoystick, ShootButton shootButton)
+    {
+        _mobileJoystick = mobileJoystick;
+        _shootButton = shootButton;
     }
 
     private void Shot()
@@ -145,6 +155,8 @@ public class SpaceShip : MonoBehaviour
             UpdateTripleShot();
             UpdateSlowDown();
         }
+
+        _mobileInput = _mobileJoystick.InputVector.x;
     }
 
     private void UpdateTripleShot()
@@ -186,13 +198,22 @@ public class SpaceShip : MonoBehaviour
             _shipSpeed = DefaultShipSpeed;
         }
 
-        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && transform.position.x > MaxLeft)
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || _mobileInput < 0) && transform.position.x > MaxLeft)
         {
             direction = Vector3.left;
         }
-        else if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && transform.position.x < MaxRight)
+        else if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || _mobileInput > 0) && transform.position.x < MaxRight)
         {
             direction = Vector3.right;
+        }
+
+        if (_mobileInput == 0)
+        {
+            _shipSpeed = DefaultShipSpeed;
+        }
+        else
+        {
+            _shipSpeed *= Mathf.Abs(_mobileInput);
         }
 
         transform.position += _shipSpeed * Time.deltaTime * direction;
@@ -200,7 +221,7 @@ public class SpaceShip : MonoBehaviour
 
     private void UpdateShooting()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && _readyToShoot == true && LaserCounter <= 0)
+        if ((Input.GetKeyDown(KeyCode.Space) || _shootButton.ButtonPressed) && _readyToShoot && LaserCounter <= 0)
         {
             Shot();
         }
