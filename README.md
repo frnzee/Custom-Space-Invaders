@@ -3,7 +3,7 @@ Remake of classic "Space invaders" game. The goal is to protect the Earth using 
 
 Tech stack: Scene management, Patterns(Singleton), FX, Game loop, Game Levels, Game Mechanics, Simple AI, Transform operations, TextMeshPro
 
-Platform: PC
+Platform: PC, Android
 
 Link to gameplay example video - https://youtu.be/aouRZ4vmDsw
 
