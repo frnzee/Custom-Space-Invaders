@@ -29,6 +29,8 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] private GameUI _gameUI;
     [SerializeField] private InvadersController _invadersController;
     [SerializeField] private LevelCounter _levelCounter;
+    [SerializeField] private MobileJoystick _mobileJoystick;
+    [SerializeField] private ShootButton _shootButton;
 
     [SerializeField] private int _rows;
     [SerializeField] private int _columns;
@@ -61,6 +63,7 @@ public partial class GameManager : MonoBehaviour
         _levelCounter.LevelStart(_currentLevel, true);
         GameStatsUI.Instance.InitGameStats();
         _gameUI.StartMenuFadeOut();
+        _gameUI.ShowMobileControls();
 
         if (!_spaceShip)
         {
@@ -75,6 +78,7 @@ public partial class GameManager : MonoBehaviour
         _defaultShipPosition = new Vector2(0, ShiftSpaceShipDown);
         _spaceShip = Instantiate(_spaceShipPrefab, transform);
         _spaceShip.transform.position = _defaultShipPosition;
+        _spaceShip.InitializeControls(_mobileJoystick, _shootButton);
     }
 
     private void SpawnInvaders()
